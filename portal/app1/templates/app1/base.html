@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>Bojxona elektron ta'limi</title>
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+	<link rel="stylesheet" href="{% static 'css/ready.css' %}">
+	<link rel="stylesheet" href="{% static 'css/demo.css' %}">
+	<!------------------------------------------------------------------------------------------------------------------>
+	<link rel="stylesheet" href="{% static 'css/data-table/bootstrap-table.css' %}">
+    <link rel="stylesheet" href="{% static 'css/data-table/bootstrap-editable.css' %}">
+	<!------------------------------------------------------------------------------------------------------------------>
+	 <link rel="stylesheet" href="{% static 'rts/css/main.css' %}">
+</head>
+<body>
+	<div class="wrapper">
+		<div class="main-header">
+			<div class="logo-header">
+				<a href="index.html" class="logo">
+					BOJXONA DARSLIGI
+				</a>
+				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<button class="topbar-toggler more"><i class="la la-ellipsis-v"></i></button>
+			</div>
+			<nav class="navbar navbar-header navbar-expand-lg">
+				<div class="container-fluid">
+
+					<form class="navbar-left navbar-form nav-search mr-md-3" action="">
+						<div class="input-group">
+							<input type="text" placeholder="Search ..." class="form-control">
+							<div class="input-group-append">
+								<span class="input-group-text">
+									<i class="la la-search search-icon"></i>
+								</span>
+							</div>
+						</div>
+					</form>
+					<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+						<li class="nav-item dropdown hidden-caret">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="la la-envelope"></i>
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="#">Action</a>
+								<a class="dropdown-item" href="#">Another action</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="#">Something else here</a>
+							</div>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false"> <img src="{% static 'img/profile.jpg' %}" alt="user-img" width="36" class="img-circle"><span >{{request.user}}</span></span> </a>
+							<ul class="dropdown-menu dropdown-user">
+								<li>
+									<div class="user-box">
+										<div class="u-img"><img src="{% static 'img/profile.jpg' %}" alt="user"></div>
+										<div class="u-text">
+											<h4>{{request.user}}</h4>
+											<p class="text-muted">{{request.first_name}}</p><a href="profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a></div>
+										</div>
+									</li>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="#"><i class="ti-user"></i> Mening profilim</a>
+									<a class="dropdown-item" href="#"><i class="ti-email"></i> Xabarlar</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="#"><i class="ti-settings"></i>Parametrlar</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="{% url 'logout' %}" ><i class="fa fa-power-off"></i> Chiqish</a>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+			<div class="sidebar">
+				<div class="scrollbar-inner sidebar-wrapper">
+					<div class="user">
+						<div class="photo">
+							<img src="{% static 'img/profile.jpg' %}">
+						</div>
+						<div class="info">
+							<a class="" data-toggle="collapse" href="#collapseExample" aria-expanded="true">
+								<span>
+									{{request.first_name}}
+									<span class="user-level">{{request.user}}</span>
+									<span class="caret"></span>
+								</span>
+							</a>
+							<div class="clearfix"></div>
+
+							<div class="collapse in" id="collapseExample" aria-expanded="true" style="">
+								<ul class="nav">
+									<li>
+										<a href="#profile">
+											<span class="link-collapse">My Profile</span>
+										</a>
+									</li>
+									<li>
+										<a href="#edit">
+											<span class="link-collapse">Edit Profile</span>
+										</a>
+									</li>
+									<li>
+										<a href="#settings">
+											<span class="link-collapse">Settings</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<ul class="nav">
+						<li class="nav-item active">
+							<a href="/">
+								<i class="la la-dashboard"></i>
+								<p>Asosiy bo'lim</p>
+							</a>
+						</li>
+						{% if request.user.groups.all.0.name == "super-admin" %}
+						<li class="nav-item">
+							<a href="{% url 'authuserpage' %}">
+								<i class="la la-keyboard-o"></i>
+								<p>Foydalanuvchilar</p>
+							</a>
+						</li>
+						{% elif request.user.groups.all.0.name == "admin-type-1" %}
+						<li class="nav-item">
+							<a href="{% url 'authuserpage' %}">
+								<i class="la la-keyboard-o"></i>
+								<p>Foydalanuvchilar</p>
+							</a>
+						</li>
+						{% endif %}
+						{% if request.user.groups.all.0.name == "super-admin" %}
+						<li class="nav-item">
+							<a href="{% url 'subjectpage' %}">
+								<i class="la la-keyboard-o"></i>
+								<p>Fanlar</p>
+							</a>
+						</li>
+						{% elif request.user.groups.all.0.name == "admin-type-1" %}
+						<li class="nav-item">
+							<a href="{% url 'subjectpage' %}">
+								<i class="la la-keyboard-o"></i>
+								<p>Fanlar</p>
+							</a>
+						</li>
+						{% endif %}
+						<li class="nav-item">
+							<a href="{% url 'tablepage1' %}" class="disable">
+								<i class="la la-th"></i>
+								<p>Mavzular</p>
+							</a>
+						</li>
+						{% if request.user.groups.all.0.name == "super-admin" %}
+						<li class="nav-item">
+							<a href="{% url 'themeforwhich' %}">
+								<i class="la la-keyboard-o"></i>
+								<p>Men ma'sul bo'lgan mavzular</p>
+							</a>
+						</li>
+						{% elif request.user.groups.all.0.name == "admin-type-2" %}
+						<li class="nav-item">
+							<a href="{% url 'themeforwhich' %}">
+								<i class="la la-keyboard-o"></i>
+								<p>Men ma'sul bo'lgan mavzular</p>
+							</a>
+						</li>
+						{% endif %}
+						<li class="nav-item">
+							<a href="{% url 'usert' %}">
+								<i class="la la-fonticons"></i>
+								<p>Mening Mavzularim</p>
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a href="#">
+								<i class="la la-bell"></i>
+								<p>Xabarlar</p>
+								<span class="badge badge-success">3</span>
+							</a>
+						</li>
+						<li class="nav-item update-pro">
+							<button  data-toggle="modal" data-target="#modalUpdate">
+								<i class="la la-hand-pointer-o"></i>
+								<p>Button</p>
+							</button>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="main-panel">
+				<div class="content ">
+					{% block body %}{% endblock %}
+				</div>
+				<footer class="footer">
+					<div class="container-fluid">
+						<nav class="pull-left">
+						</nav>
+					</div>
+				</footer>
+			</div>
+		</div>
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="modalUpdate" tabindex="-1" role="dialog" aria-labelledby="modalUpdatePro" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header bg-primary">
+					<h6 class="modal-title"><i class="la la-frown-o"></i> Under Development</h6>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body text-center">
+					<p>Currently the pro version of the <b>Ready Dashboard</b> Bootstrap is in progress development</p>
+					<p>
+						<b>We'll let you know when it's done</b></p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="{% static 'js/core/jquery.3.2.1.min.js' %}"></script>
+<script src="{% static 'js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js' %}"></script>
+<script src="{% static 'js/core/popper.min.js' %}"></script>
+<script src="{% static 'js/core/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/plugin/chartist/chartist.min.js' %}"></script>
+<script src="{% static 'js/plugin/chartist/plugin/chartist-plugin-tooltip.min.js' %}"></script>
+<script src="{% static 'js/plugin/bootstrap-notify/bootstrap-notify.min.js' %}"></script>
+<script src="{% static 'js/plugin/bootstrap-toggle/bootstrap-toggle.min.js' %}"></script>
+<script src="{% static 'js/plugin/jquery-mapael/jquery.mapael.min.js' %}"></script>
+<script src="{% static 'js/plugin/jquery-mapael/maps/world_countries.min.js' %}"></script>
+<script src="{% static 'js/plugin/chart-circle/circles.min.js' %}"></script>
+<script src="{% static 'js/plugin/jquery-scrollbar/jquery.scrollbar.min.js' %}"></script>
+<script src="{% static 'js/ready.min.js' %}"></script>
+<script src="{% static 'js/demo.js' %}"></script>
+<script src="{% static 'rtc/client.js' %}"></script>
+
+
+    <!-- jquery
+		============================================ -->
+    <script src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
+    <!-- bootstrap JS
+		============================================ -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- wow JS
+		============================================ -->
+    <script src="{% static 'js/wow.min.js' %}"></script>
+    <!-- price-slider JS
+		============================================ -->
+    <script src="{% static 'js/jquery-price-slider.js' %}"></script>
+    <!-- meanmenu JS
+		============================================ -->
+    <script src="{% static 'js/jquery.meanmenu.js' %}"></script>
+    <!-- owl.carousel JS
+		============================================ -->
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <!-- sticky JS
+		============================================ -->
+    <script src="{% static 'js/jquery.sticky.js' %}"></script>
+    <!-- scrollUp JS
+		============================================ -->
+    <script src="{% static 'js/jquery.scrollUp.min.js' %}"></script>
+    <!-- mCustomScrollbar JS
+		============================================ -->
+    <script src="js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="js/scrollbar/mCustomScrollbar-active.js"></script>
+    <!-- metisMenu JS
+		============================================ -->
+    <script src="js/metisMenu/metisMenu.min.js"></script>
+    <script src="js/metisMenu/metisMenu-active.js"></script>
+	<!-- data table JS
+		============================================ -->
+    <script src="{% static 'js/data-table/bootstrap-table.js' %}"></script>
+    <script src="{% static 'js/data-table/tableExport.js' %}"></script>
+    <script src="{% static 'js/data-table/data-table-active.js' %}"></script>
+    <script src="{% static 'js/data-table/bootstrap-table-editable.js' %}"></script>
+    <script src="{% static 'js/data-table/bootstrap-editable.js' %}"></script>
+    <script src="{% static 'js/data-table/bootstrap-table-resizable.js' %}"></script>
+    <script src="{% static 'js/data-table/colResizable-1.5.source.js' %}"></script>
+    <script src="{% static 'js/data-table/bootstrap-table-export.js' %}"></script>
+    <!--  editable JS
+		============================================ -->
+    <script src="{% static 'js/editable/jquery.mockjax.js' %}"></script>
+    <script src="{% static 'js/editable/mock-active.js' %}"></script>
+    <script src="{% static 'js/editable/select2.js' %}"></script>
+    <script src="{% static 'js/editable/moment.min.js' %}"></script>
+    <script src="{% static 'js/editable/bootstrap-datetimepicker.js' %}"></script>
+    <script src="{% static 'js/editable/bootstrap-editable.js' %}"></script>
+    <script src="{% static 'js/editable/xediable-active.js' %}"></script>
+	<script src="{% static 'rtc/js/main.js' %}"></script>
+</html>

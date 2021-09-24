@@ -1,0 +1,81 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.87.0">
+    <title>Signin</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sign-in/">
+
+
+
+    <!-- Bootstrap core CSS -->
+<link href="{% static 'app1/bootstrap.min.css' %}" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'app1/signin.css' %}" rel="stylesheet">
+  </head>
+  <body class="text-center">
+
+<main class="form-signin">
+  <form method="POST" action="">
+      {% csrf_token %}
+    <img alt="QR portal" src="{% static 'img/logg.png' %}" border="0" style="width:270px;">
+    <h7 class="h3 mb-3 fw-normal">Please sign in</h7>
+
+    <div class="form-floating">
+      <input type="text" name="username" class="form-control" placeholder="Username">
+      <label class="user">Enter username</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" name="password" class="form-control" placeholder="Password">
+      <label>Password</label>
+    </div>
+
+    <div class="checkbox mb-3">
+      <label>
+        <input type="checkbox" value="remember-me"> Remember me
+      </label>
+    </div>
+      <button class="w-100 btn btn-lg btn-primary" type="submit" value="Sign in">Sign in</button>
+
+      {% for message in messages%}
+          <h7 style="color:#f0000"><p id="" class="text-danger">{{message}}</p></h7>
+      {% endfor %}
+      <hr>
+      <input type="button" class="w-100 btn-lg btn-lg btn-success" value="Registration" onclick=" relocate_href()">
+      <script>
+      function relocate_href()
+      {
+          location.href = "{% url 'register' %}";
+      }
+</script>
+
+  </form>
+</main>
+
+
+
+  </body>
+</html>

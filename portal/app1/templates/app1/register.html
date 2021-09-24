@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registration</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'app1/register-style.css' %}">
+    <style>
+    .myDiv {
+    font-size: 100%;
+    border: 3px outset blue;
+    background-color: lightyellow;
+    text-align: center;
+    }
+</style>
+    <style>
+   .center {
+    width: 200px; /* Ширина элемента в пикселах */
+    padding: 10px; /* Поля вокруг текста */
+    margin: auto; /* Выравниваем по центру */
+    background: #fc0; /* Цвет фона */
+   }
+  </style>
+</head>
+<body>
+    <div class="registration-form" >
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-icon">
+                <span><i class="icon icon-user"></i></span>
+            </div>
+            <div class="myDiv">
+                {{ form.first_name }}
+            </div>
+            <hr>
+            <div class="myDiv">
+                {{ form.last_name }}
+            </div>
+            <hr>
+            <div class="myDiv">
+                {{ form.username }}
+            </div>
+            <hr>
+            <div class="myDiv" >
+                {{form.password1}}
+            </div>
+            <hr>
+            <div class="myDiv">
+                {{form.password2}}
+            </div>
+            <div>
+                <input type="submit" class="btn btn-block create-account" value="Registration" />
+            </div>
+
+            <hr>
+            <div class="col-100% d-flex justify-content-left text-left">
+            <p class="text-warning"><h5>{{form.errors}}</h5></p>
+            </div>
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <h5><a class="nav-link active" href="{% url 'login' %}">Or Sign in</a></h5>
+                </li>
+            </ul>
+        </form>
+        <div class="col-100% d-flex justify-content-center text-center">
+            <h6>Faqat bojxona xodimiga ro'yxatdan o'tishga ruxsat beriladi!</h6>
+        </div>
+    </div>
+    <script>
+
+      var form_fields = document.getElementsByTagName('input')
+      form_fields[1].placeholder='Firstname..';
+      form_fields[2].placeholder='Lastname..';
+      form_fields[3].placeholder='Username..';
+      form_fields[4].placeholder='Enter Password..';
+      form_fields[5].placeholder='Re-enter Password..';
+
+      for (var field in form.fields){
+           form_fields[field].className += ' form-control'
+      }
+
+    </script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <script src="{% static 'app1/register-script.js' %}"></script>
+</body>
+
+</html>

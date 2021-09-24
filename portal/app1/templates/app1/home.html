@@ -1,0 +1,197 @@
+{% extends 'app1/base.html' %}
+{% block body %}
+{% load static %}
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3">
+				<div class="card card-stats card-warning">
+					<div class="card-body ">
+						<div class="row">
+							<div class="col-5">
+								<div class="icon-big text-center">
+									<i class="la la-users"></i>
+								</div>
+							</div>
+							<div class="col-7 d-flex align-items-center">
+								<div class="numbers">
+									<p class="card-category">Online xodimlar:</p>
+									<h4 class="card-title">{{ numberactiveusers }} ta</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="card card-stats card-success">
+					<div class="card-body ">
+						<div class="row">
+							<div class="col-5">
+								<div class="icon-big text-center">
+									<i class="la la-bar-chart"></i>
+								</div>
+							</div>
+							<div class="col-7 d-flex align-items-center">
+								<div class="numbers">
+									<p class="card-category">Sales</p>
+									<h4 class="card-title">$ 1,345</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="card card-stats card-danger">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-5">
+								<div class="icon-big text-center">
+									<i class="la la-newspaper-o"></i>
+								</div>
+							</div>
+							<div class="col-7 d-flex align-items-center">
+								<div class="numbers">
+									<p class="card-category">Subscribers</p>
+									<h4 class="card-title">1303</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="card card-stats card-primary">
+					<div class="card-body ">
+						<div class="row">
+							<div class="col-5">
+								<div class="icon-big text-center">
+									<i class="la la-check-circle"></i>
+								</div>
+							</div>
+							<div class="col-7 d-flex align-items-center">
+								<div class="numbers">
+									<p class="card-category">Ro'yxatdan o'tgan:</p>
+									<h4 class="card-title">{{numberallusers}}</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="center">
+
+			<form enctype="multipart/form-data" method="POST">
+				{% csrf_token %}
+				<div class="card">
+					<h3>Yangi mavzu qo'shish</h3>
+					<table id="" class="table table-striped table-bordered" cellspacing="0" width="100%">
+						<thead>
+							<tr>
+								<th scope="col">Mavzu</th>
+								<th scope="col">Qisqacha</th>
+								<th scope="col">Fan</th>
+								<th scope="col">Ma'sul</th>
+								<th scope="col">Mavzu sanasi</th>
+						</thead>
+						<tbody>
+							<tr>
+								<td>{{ form2.theme }}</td>
+								<td>{{ form2.url }}</td>
+								<td>{{ form2.subject_type }}</td>
+								<td>{{ form2.responsible_section }}</td>
+								<td>{{ form2.lesson_date }}</td>
+								<!--<td><input type="submit" value="Submit"></td>-->
+								<td><button class="btn btn-success" type="submit">Saqlash</button></td>
+							</tr>
+						</tbody>
+				 </table>
+				</div>
+			</form>
+			<div class="center">
+				<div class="card">
+					<div class="card-header ">
+						<h4 class="card-title">Foydalanuvchilar</h4>
+						<p class="card-category">Xozirda tizimdan foydalanayotgan xodimlar jadvali:</p>
+					</div>
+					<div class="card-body">
+						<table class="table table-head-bg-success table-striped table-hover">
+							<thead>
+								<tr>
+									<th scope="col">№</th>
+									<th scope="col">Xodim nomi</th>
+									<th scope="col">Tizimga kirgan vaqti</th>
+								</tr>
+							</thead>
+							<tbody>
+							{% for activename in nameactiveusers %}
+								<tr>
+									<td>{{ activename.id }}</td>
+									<td>{{ activename.user }}</td>
+									<td>{{ activename.last_activity}}</td>
+								</tr>
+							{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div>
+
+    <meta charset="utf-8">
+    <meta name="description" content="WebRTC code samples">
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
+    <meta itemprop="description" content="Client-side WebRTC code samples">
+    <meta itemprop="image" content="../../../images/webrtc-icon-192x192.png">
+    <meta itemprop="name" content="WebRTC code samples">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta id="theme-color" name="theme-color" content="#ffffff">
+
+    <base target="_blank">
+
+    <title>Peer connection relay</title>
+
+    <link rel="icon" sizes="192x192" href="../../../images/webrtc-icon-192x192.png">
+    <link href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../../../css/main.css"/>
+    <link rel="stylesheet" href="{% static 'rtc/main.css' %}"/>
+
+<div id="container">
+
+		<h1><a href="//webrtc.github.io/samples/" title="WebRTC samples homepage">WebRTC samples</a> <span>Peer connection relay</span>
+		</h1>
+
+		<div id="videos">
+			<video id="video1" playsinline autoplay muted></video>
+			<video id="video2" playsinline autoplay></video>
+		</div>
+
+		<section><input type="checkbox" id="audio"><label for="audio">Include audio (supported in Chrome 49 and above)</label></section>
+
+		<div id="buttons">
+			<button id="start">Start</button>
+			<button id="call" disabled>Call</button>
+			<button id="insertRelay" disabled>Insert relay</button>
+			<button id="hangup" disabled>Hang Up</button>
+		</div>
+
+		<div id="status"></div>
+
+		<a href="https://github.com/webrtc/samples/tree/gh-pages/src/content/peerconnection/multiple-relay"
+		   title="View source for this page on GitHub" id="viewSource">View source on GitHub</a>
+
+	</div>
+
+		<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+		<script src="../../../js/videopipe.js"></script>
+		<script src="{% static 'rtc/main.js' %}" async></script>
+
+		<script src="../../../js/lib/ga.js"></script>
+	</div>
+
+{% endblock %}

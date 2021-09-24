@@ -1,0 +1,89 @@
+{% extends 'app1/base.html' %}
+{% block body %}
+	<div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-tasks">
+                    <div class="card-header ">
+                        <div><h3>Fanlar</h3></div>
+                        <div class="progress-card">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="text-muted">Umumiy soni</span>
+                                <span class="text-muted fw-bold">{{subjectcount}}</span>
+                            </div>
+                            <div class="progress mb-2" style="height: 7px;">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: {{subjectcount}}%" aria-valuenow="{{subjectcount}}" aria-valuemin="0" aria-valuemax="100" data-toggle="tooltip" data-placement="top" title="78%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body ">
+                        <div class="table-full-width">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input  select-all-checkbox" type="checkbox" data-select="checkbox" data-target=".task-select">
+                                                    <span class="form-check-sign"></span>
+                                                </label>
+                                            </div>
+                                        </th>
+                                        <th>№</th>
+                                        <th>Fan nomi</th>
+                                        <th>Tahrir</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for allsubject in subjectname %}
+                                    <tr>
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input task-select" type="checkbox">
+                                                    <span class="form-check-sign"></span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>{{allsubject.id}}</td>
+                                        <td>{{allsubject.subject_name}}</td>
+                                        <td class="td-actions text-right">
+                                            <div class="form-button-action">
+                                                <button type="button" data-toggle="tooltip" title="Edit Task" class="btn btn-link <btn-simple-primary">
+                                                    <i class="la la-edit"></i>
+                                                </button>
+                                                <button type="button" data-toggle="tooltip" title="Remove" class="btn btn-link btn-simple-danger">
+                                                    <i class="la la-times"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer ">
+                        <div class="stats">
+                            <i class="now-ui-icons loader_refresh spin"></i>
+                            <form method="POST">
+                                {% csrf_token %}
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <h6 >Yangi fan qo'shish</h6>
+                                    <hr>
+                                    {{formfan.as_p}}
+                                    <button class="btn btn-success">Saqlash</button>
+                                    {% for message1 in messages%}
+                                    <h7 style="color:#f0000"><p id="" class="text-success">{{message1}}</p></h7>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

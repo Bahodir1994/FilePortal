@@ -1,0 +1,51 @@
+{% extends 'app1/base.html' %}
+{% block body %}
+{% load static %}
+<style>
+.div-3 {
+    	background-color: #ffffff;
+    }
+
+th {
+  background-color: #04AA6D;
+  color: white;
+}
+</style>
+<div class="div-3">
+<table class="table">
+    <thead>
+        <tr>
+            <th>Mavzu</th>
+            <th>Fan</th>
+            <th>Sana</th>
+            <th>Doc-xujjat</th>
+            <th>Slayd</th>
+            <th>Video</th>
+            <th>Ovozli xabar</th>
+            <th>Foto</th>
+        </tr>
+    </thead>
+    <tbody>
+     {% for mod in themefil %}
+        <tr>
+            <td><a href="{{mod.get_add_url}}">{{mod.theme}}</a></td>
+            <td>{{mod.subject_type}}</td>
+            <td>{{mod.lesson_date}}</td>
+            <td>{{mod.doc_file}}</td>
+            <td>{{mod.powerpoint_file}}</td>
+            <td>{{mod.video_file}}</td>
+            <td>{{mod.audio_file}}</td>
+            <td>{{mod.img_file}}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+    <!--<div>
+         <form action="" method="POST">
+             {% csrf_token %}
+             {{ form.as_p }}
+             <button type="submit" class="btn btn-outline-success">Saqlash</button>
+         </form>
+    </div>-->
+</div>
+{% endblock %}
