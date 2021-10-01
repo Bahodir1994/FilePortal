@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-p^a)lm##7x8$5yg%+zytjv-p$7)ztx6-yyphv8&v1=e6mtypf#
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-#'192.168.43.250'
+
 ALLOWED_HOSTS = ['*']
 
 # Application definition
@@ -36,6 +36,8 @@ INSTALLED_APPS = [
     'channels',
     'django_filters',
     'online_users',
+    #' django_private_chat2.Apps.DjangoPrivateChat2Config ',
+    #"pinax.messages",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,8 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

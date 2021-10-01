@@ -12,6 +12,7 @@ urlpatterns = [
     path('register/', views.RegisterPage, name='register'),
     path('login/', views.LoginPage, name='login'),
     path('logout/', views.logoutuser, name='logout'),
+
     path('tablepage1/', views.TablePage1.as_view(), name='tablepage1'),
     path('themeforwhich/', views.ThemesForWhich.as_view(), name='themeforwhich'),
     #path("<slug:slug>/", views.ThemeAddList.as_view(), name='themeaddlist'),

@@ -1,14 +1,37 @@
 {% extends 'app1/base.html' %}
 {% block body %}
-	<div class="container-fluid">
-        <div class="row">
+{% load static %}
+	<div class="body">
+        <style>
+                body {
+                margin: 0; /* Убираем отступы */
+                }
+                .parent {
+                margin: 20%; /* Отступы вокруг элемента */
+                background: #fd0; /* Цвет фона */
+                padding: 10px; /* Поля вокруг текста */
+                }
+                .child {
+                border: 3px solid #666; /* Параметры рамки */
+                padding: 10px; /* Поля вокруг текста */
+                margin: 10px; /* Отступы вокруг */
+                }
+                .table-adaptive {
+                width: 100%;
+                overflow: auto;
+                margin: 0 0 1em;
+                }
+                h3 {text-align: center;}
+                p {text-align: center;}
+		    </style>
+
             <div class="col-md-12">
-                <div class="card card-tasks">
+                <div class="card card-tasks" style="background-image:url('{% static 'img/1 (9).png' %}');">
                     <div class="card-header ">
-                        <div><h3>Fanlar</h3></div>
+                        <div><h3>FANLAR</h3></div>
                         <div class="progress-card">
                             <div class="d-flex justify-content-between mb-1">
-                                <span class="text-muted">Umumiy soni</span>
+                                <span class="text-muted"><b>Umumiy soni</b></span>
                                 <span class="text-muted fw-bold">{{subjectcount}}</span>
                             </div>
                             <div class="progress mb-2" style="height: 7px;">
@@ -18,7 +41,7 @@
                     </div>
                     <div class="card-body ">
                         <div class="table-full-width">
-                            <table class="table">
+                            <table class="table-adaptive">
                                 <thead>
                                     <tr>
                                         <th>
@@ -30,8 +53,8 @@
                                             </div>
                                         </th>
                                         <th>№</th>
-                                        <th>Fan nomi</th>
-                                        <th>Tahrir</th>
+                                        <th><b>Fan nomi</b></th>
+                                        <th><b>Tahrir</b></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -45,8 +68,8 @@
                                                 </label>
                                             </div>
                                         </td>
-                                        <td>{{allsubject.id}}</td>
-                                        <td>{{allsubject.subject_name}}</td>
+                                        <td><b>{{allsubject.id}}</b></td>
+                                        <td><b>{{allsubject.subject_name}}</b></td>
                                         <td class="td-actions text-right">
                                             <div class="form-button-action">
                                                 <button type="button" data-toggle="tooltip" title="Edit Task" class="btn btn-link <btn-simple-primary">
@@ -63,19 +86,29 @@
                             </table>
                         </div>
                     </div>
+
                     <div class="card-footer ">
+
                         <div class="stats">
                             <i class="now-ui-icons loader_refresh spin"></i>
                             <form method="POST">
                                 {% csrf_token %}
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <h6 >Yangi fan qo'shish</h6>
-                                    <hr>
-                                    {{formfan.as_p}}
-                                    <button class="btn btn-success">Saqlash</button>
+                                    <div class="container">
+                                        <div class="row" align="center"><h3 >YANGI FAN KIRITISH</h3></div>
+
+                                        <div class="row">
+                                            <div class="col">
+                                                {{formfan.as_p}}
+                                            </div>
+                                            <div class="col">
+                                                <button class="btn btn-success">Saqlash</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                     {% for message1 in messages%}
-                                    <h7 style="color:#f0000"><p id="" class="text-success">{{message1}}</p></h7>
+                                        <h7 style="color:#f0000"><p id="" class="text-success">{{message1}}</p></h7>
                                     {% endfor %}
                                 </div>
                             </div>

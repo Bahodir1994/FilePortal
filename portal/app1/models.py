@@ -41,7 +41,7 @@ class Sections_and_groups(models.Model):
 
 class Themes(models.Model):
     """Fan mavzulari"""
-    theme = models.CharField(max_length=200, verbose_name="Mavzu nomi")
+    theme = models.CharField(max_length=500, verbose_name="Mavzu nomi")
     url = models.SlugField(max_length=200, unique=True)
     subject_type = models.ForeignKey(Subjects, verbose_name="Fan nomi", on_delete=models.CASCADE, )
     responsible_section = models.ForeignKey(User, on_delete=models.CASCADE,

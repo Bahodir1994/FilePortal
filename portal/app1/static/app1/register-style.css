@@ -1,5 +1,6 @@
 body{
     background-color: #dee9ff;
+
 }
 
 .registration-form{
@@ -7,6 +8,7 @@ body{
 }
 
 .registration-form form{
+
     background-color: #fff;
     max-width: 600px;
     margin: auto;
@@ -17,6 +19,7 @@ body{
 }
 
 .registration-form .form-icon{
+
 	text-align: center;
     background-color: #5891ff;
     border-radius: 50%;
@@ -30,12 +33,14 @@ body{
 }
 
 .registration-form .item{
+
 	border-radius: 20px;
     margin-bottom: 25px;
     padding: 10px 20px;
 }
 
 .registration-form .create-account{
+
     border-radius: 30px;
     padding: 10px 20px;
     font-size: 18px;

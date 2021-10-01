@@ -2,44 +2,70 @@
 {% block body %}
 {% load static %}
 
-<div class="card-header">
+<div>
     <div class="row">
         <div class="col">
-            <div class="card card-body">
-                <div><h3>Ro'yxatdan o'tgan foydalanuvchilar jadvali</h3></div>
-                <hr>
+            <style>
+                body {
+                margin: 0; /* Убираем отступы */
+                }
+                .parent {
+                margin: 20%; /* Отступы вокруг элемента */
+                background: #fd0; /* Цвет фона */
+                padding: 10px; /* Поля вокруг текста */
+                }
+                .child {
+                border: 3px solid #666; /* Параметры рамки */
+                padding: 10px; /* Поля вокруг текста */
+                margin: 10px; /* Отступы вокруг */
+                }
+                .table-adaptive {
+                width: 100%;
+                overflow: auto;
+                margin: 0 0 1em;
+                }
+                h3 {text-align: center;}
+                p {text-align: center;}
+		    </style>
+            <div class="body">
+                <div >
+                    <h3><b>XODIMLAR RO'YXATI</b></h3>
                     <form method="get">
                         {% csrf_token %}
-                                    <th scope="col">Login: {{filters.form.username}}</th>
-                                    <th scope="col">Familiya: {{filters.form.first_name}}</th>
-                                    <th scope="col">Ism: {{filters.form.last_name}}</th>
+                        <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <tr><th>Login:</th><td scope="col"> <input type="search" name="username"></td></tr>
+                            <tr><th>Familiya:</th><td scope="col"><input type="search" name="first_name"></td></tr>
+                            <tr><th>Ism:</th><td scope="col"><input type="search" name="last_name"></td></tr>
                         </table>
-                        <button class="btn btn-primary" type="submit">Qidirish</button>
+                        <button class="btn btn-primary" type="submit"><b>QIDIRISH</b></button>
                     </form>
-                <hr>
-                 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                        <thead>
-                            <tr>
-                                <th scope="col">№</th>
-                                <th scope="col">Login</th>
-                                <th scope="col">Familiya</th>
-                                <th scope="col">Ism</th>
-                                <th scope="col">Bo'lgan vaqti</th>
-                                <th scope="col">Tarir bo'limi</th>
-                        </thead>
-                        <tbody>
-                            {% for user in filters.qs %}
+                    <hr>
+                    <div class="table-adaptive">
+                        <table  class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
                                 <tr>
-                                    <td>{{ user.id }}</td>
-                                    <td>{{ user.username }}</td>
-                                    <td>{{ user.first_name }}</td>
-                                    <td>{{ user.last_name }}</td>
-                                    <td>{{ user.last_login }}</td>
-                                    <td><a href="{{user.username.url}}"><button class="btn btn-success">Tahrir</button></a></td>
-                                </tr>
-                            {% endfor %}
-	                    </tbody>
+                                    <th scope="col">№</th>
+                                    <th scope="col">Login</th>
+                                    <th scope="col">Familiya</th>
+                                    <th scope="col">Ism</th>
+                                    <th scope="col">Bo'lgan vaqti</th>
+                                    <th scope="col">Tarir bo'limi</th>
+                            </thead>
+                            <tbody>
+                                {% for user in filters.qs %}
+                                    <tr>
+                                        <td>{{ user.id }}</td>
+                                        <td>{{ user.username }}</td>
+                                        <td>{{ user.first_name }}</td>
+                                        <td>{{ user.last_name }}</td>
+                                        <td>{{ user.last_login }}</td>
+                                        <td><a href="{{user.username.url}}"><button class="btn btn-success">Tahrir</button></a></td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
                         </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

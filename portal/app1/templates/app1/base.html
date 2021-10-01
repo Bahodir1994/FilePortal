@@ -6,26 +6,33 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<title>Bojxona elektron ta'limi</title>
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+	<link href="{% static 'app1/bootstrap.min.css' %}" rel="stylesheet">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
 	<link rel="stylesheet" href="{% static 'css/ready.css' %}">
-	<link rel="stylesheet" href="{% static 'css/demo.css' %}">
+
 	<!------------------------------------------------------------------------------------------------------------------>
 	<link rel="stylesheet" href="{% static 'css/data-table/bootstrap-table.css' %}">
     <link rel="stylesheet" href="{% static 'css/data-table/bootstrap-editable.css' %}">
 	<!------------------------------------------------------------------------------------------------------------------>
-	 <link rel="stylesheet" href="{% static 'rts/css/main.css' %}">
+	<link rel="stylesheet" href="{% static 'rts/css/main.css' %}">
+
 </head>
-<body>
-	<div class="wrapper">
-		<div class="main-header">
+
+<body >
+	<div class="wrapper" >
+		<div class="main-header"  style="background-image:url('{% static 'img/1 (2).png' %}');">
+
 			<div class="logo-header">
-				<a href="index.html" class="logo">
-					BOJXONA DARSLIGI
-				</a>
+
+					<img src="{% static 'img/gtk.png' %}" width="50" height="50">
+  					QRBB e-darslik
+
+
 				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
+
 				<button class="topbar-toggler more"><i class="la la-ellipsis-v"></i></button>
 			</div>
 			<nav class="navbar navbar-header navbar-expand-lg">
@@ -77,125 +84,67 @@
 					</div>
 				</nav>
 			</div>
-			<div class="sidebar">
-				<div class="scrollbar-inner sidebar-wrapper">
-					<div class="user">
-						<div class="photo">
-							<img src="{% static 'img/profile.jpg' %}">
-						</div>
-						<div class="info">
-							<a class="" data-toggle="collapse" href="#collapseExample" aria-expanded="true">
-								<span>
-									{{request.first_name}}
-									<span class="user-level">{{request.user}}</span>
-									<span class="caret"></span>
-								</span>
-							</a>
-							<div class="clearfix"></div>
-
-							<div class="collapse in" id="collapseExample" aria-expanded="true" style="">
-								<ul class="nav">
-									<li>
-										<a href="#profile">
-											<span class="link-collapse">My Profile</span>
-										</a>
-									</li>
-									<li>
-										<a href="#edit">
-											<span class="link-collapse">Edit Profile</span>
-										</a>
-									</li>
-									<li>
-										<a href="#settings">
-											<span class="link-collapse">Settings</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
+			<div class="sidebar" style="background-image:url('{% static 'img/1 (2).png' %}');">
+				<div  class="scrollbar-inner sidebar-wrapper">
 					<ul class="nav">
-						<li class="nav-item active">
-							<a href="/">
-								<i class="la la-dashboard"></i>
-								<p>Asosiy bo'lim</p>
-							</a>
-						</li>
-						{% if request.user.groups.all.0.name == "super-admin" %}
-						<li class="nav-item">
-							<a href="{% url 'authuserpage' %}">
-								<i class="la la-keyboard-o"></i>
-								<p>Foydalanuvchilar</p>
-							</a>
-						</li>
-						{% elif request.user.groups.all.0.name == "admin-type-1" %}
-						<li class="nav-item">
-							<a href="{% url 'authuserpage' %}">
-								<i class="la la-keyboard-o"></i>
-								<p>Foydalanuvchilar</p>
-							</a>
-						</li>
-						{% endif %}
-						{% if request.user.groups.all.0.name == "super-admin" %}
-						<li class="nav-item">
-							<a href="{% url 'subjectpage' %}">
-								<i class="la la-keyboard-o"></i>
-								<p>Fanlar</p>
-							</a>
-						</li>
-						{% elif request.user.groups.all.0.name == "admin-type-1" %}
-						<li class="nav-item">
-							<a href="{% url 'subjectpage' %}">
-								<i class="la la-keyboard-o"></i>
-								<p>Fanlar</p>
-							</a>
-						</li>
-						{% endif %}
-						<li class="nav-item">
-							<a href="{% url 'tablepage1' %}" class="disable">
-								<i class="la la-th"></i>
-								<p>Mavzular</p>
-							</a>
-						</li>
-						{% if request.user.groups.all.0.name == "super-admin" %}
-						<li class="nav-item">
-							<a href="{% url 'themeforwhich' %}">
-								<i class="la la-keyboard-o"></i>
-								<p>Men ma'sul bo'lgan mavzular</p>
-							</a>
-						</li>
-						{% elif request.user.groups.all.0.name == "admin-type-2" %}
-						<li class="nav-item">
-							<a href="{% url 'themeforwhich' %}">
-								<i class="la la-keyboard-o"></i>
-								<p>Men ma'sul bo'lgan mavzular</p>
-							</a>
-						</li>
-						{% endif %}
-						<li class="nav-item">
-							<a href="{% url 'usert' %}">
-								<i class="la la-fonticons"></i>
-								<p>Mening Mavzularim</p>
-							</a>
-						</li>
+                        <style>
 
-						<li class="nav-item">
-							<a href="#">
-								<i class="la la-bell"></i>
-								<p>Xabarlar</p>
-								<span class="badge badge-success">3</span>
-							</a>
-						</li>
-						<li class="nav-item update-pro">
-							<button  data-toggle="modal" data-target="#modalUpdate">
-								<i class="la la-hand-pointer-o"></i>
-								<p>Button</p>
-							</button>
-						</li>
+                            body {
+                              background: url(https://html5book.ru/wp-content/uploads/2015/07/background39.png);
+                            }
+                            .floating-button {
+                              text-decoration: none;
+                              display: inline-block;
+                              width: 230px;
+                              height: 45px;
+                              line-height: 45px;
+                              border-radius: 45px;
+                              margin: 10px 10px;
+                              font-family: 'Montserrat', sans-serif;
+                              font-size: 11px;
+                              text-transform: uppercase;
+                              text-align: center;
+                              letter-spacing: 3px;
+                              font-weight: 600;
+                              color: #FFFFFF;
+                              background: brown;
+                              box-shadow: 0 8px 15px rgba(0, 0, 0, .1);
+                              transition: .3s;
+                            }
+                            .floating-button:hover {
+                              background: #2EE59A;
+                              box-shadow: 0 15px 20px rgba(46, 229, 157, .4);
+                              color: red;
+                              transform: translateY(-7px);
+                            }
+						</style>
+                        <a href="/" class="floating-button"><i class="la la-dashboard"></i> Asosiy bo'lim</a>
+						{% if request.user.groups.all.0.name == "super-admin" %}
+                        <a href="{% url 'authuserpage' %}" class="floating-button"><i class="la la-keyboard-o"></i> Foydalanuvchilar</a>
+						{% elif request.user.groups.all.0.name == "admin-type-1" %}
+                        <a href="{% url 'authuserpage' %}" class="floating-button"><i class="la la-keyboard-o"></i> Foydalanuvchilar</a>
+						{% endif %}
+						{% if request.user.groups.all.0.name == "super-admin" %}
+                        <a href="{% url 'subjectpage' %}" class="floating-button"><i class="la la-keyboard-o"></i> Fanlar</a>
+						{% elif request.user.groups.all.0.name == "admin-type-1" %}
+                        <a href="{% url 'subjectpage' %}" class="floating-button"><i class="la la-th"></i> Fanlar</a>
+						{% endif %}
+                        <a href="{% url 'tablepage1' %}" class="floating-button"><i class="la la-th"></i> Mavzular</a>
+						{% if request.user.groups.all.0.name == "super-admin" %}
+                        <a href="{% url 'themeforwhich' %}" class="floating-button"><i class="la la-keyboard-o"></i> Biriktirilgan</a>
+						{% elif request.user.groups.all.0.name == "admin-type-2" %}
+                        <a href="{% url 'themeforwhich' %}" class="floating-button"><i class="la la-keyboard-o"></i> Biriktirilgan</a>
+						{% endif %}
+						{% if request.user.groups.all.0.name == "admin-type-1" %}
+						{% elif request.user.groups.all.0.name == "admin-type-2" %}
+						{% else%}
+                        <a href="{% url 'usert' %}" class="floating-button"><i class="la la-keyboard-o"></i> Mening Mavzularim</a>
+						{% endif %}
+                        <a href="#" class="floating-button"><i class="la la-bell"></i> Xabarlar</a>
 					</ul>
 				</div>
 			</div>
-			<div class="main-panel">
+			<div class="main-panel" style="background-image:url('{% static 'img/1 (9).png' %}');">
 				<div class="content ">
 					{% block body %}{% endblock %}
 				</div>
@@ -240,7 +189,7 @@
 <script src="{% static 'js/plugin/bootstrap-toggle/bootstrap-toggle.min.js' %}"></script>
 <script src="{% static 'js/plugin/jquery-mapael/jquery.mapael.min.js' %}"></script>
 <script src="{% static 'js/plugin/jquery-mapael/maps/world_countries.min.js' %}"></script>
-<script src="{% static 'js/plugin/chart-circle/circles.min.js' %}"></script>
+<!--<script src="{% static 'js/plugin/chart-circle/circles.min.js' %}"></script>-->
 <script src="{% static 'js/plugin/jquery-scrollbar/jquery.scrollbar.min.js' %}"></script>
 <script src="{% static 'js/ready.min.js' %}"></script>
 <script src="{% static 'js/demo.js' %}"></script>
@@ -275,28 +224,7 @@
 		============================================ -->
     <script src="js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="js/scrollbar/mCustomScrollbar-active.js"></script>
-    <!-- metisMenu JS
-		============================================ -->
-    <script src="js/metisMenu/metisMenu.min.js"></script>
-    <script src="js/metisMenu/metisMenu-active.js"></script>
-	<!-- data table JS
-		============================================ -->
-    <script src="{% static 'js/data-table/bootstrap-table.js' %}"></script>
-    <script src="{% static 'js/data-table/tableExport.js' %}"></script>
-    <script src="{% static 'js/data-table/data-table-active.js' %}"></script>
-    <script src="{% static 'js/data-table/bootstrap-table-editable.js' %}"></script>
-    <script src="{% static 'js/data-table/bootstrap-editable.js' %}"></script>
-    <script src="{% static 'js/data-table/bootstrap-table-resizable.js' %}"></script>
-    <script src="{% static 'js/data-table/colResizable-1.5.source.js' %}"></script>
-    <script src="{% static 'js/data-table/bootstrap-table-export.js' %}"></script>
-    <!--  editable JS
-		============================================ -->
-    <script src="{% static 'js/editable/jquery.mockjax.js' %}"></script>
-    <script src="{% static 'js/editable/mock-active.js' %}"></script>
-    <script src="{% static 'js/editable/select2.js' %}"></script>
-    <script src="{% static 'js/editable/moment.min.js' %}"></script>
-    <script src="{% static 'js/editable/bootstrap-datetimepicker.js' %}"></script>
-    <script src="{% static 'js/editable/bootstrap-editable.js' %}"></script>
-    <script src="{% static 'js/editable/xediable-active.js' %}"></script>
-	<script src="{% static 'rtc/js/main.js' %}"></script>
+
+
+
 </html>

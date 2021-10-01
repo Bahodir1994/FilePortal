@@ -1,82 +1,114 @@
 {% extends 'app1/base.html' %}
 {% block body %}
 
-
 	<div class="container-fluid" align="center">
 
-        <h5 class="page-title" align="center">Mavzu: {{obj.theme}}</h5><h6 align="center">Dars vaqti:  {{obj.lesson_date}}</h6>
-		<div class="p-3 mb-2 bg-dark text-white" >
-			<div class="card-header "><h5 align="center">Fan turi:</h5>  {{ obj.subject_type }}</div>
-			<div class="card-header " align="center"><h5 align="center">Ma'sul tahrirchi:</h5>{{ obj.responsible_section }}</div>
-			<div class="card-header " align="center"
-				<h5 align="center">
-					Word formatida ko'chirib olish:
-				</h5>
-				{% if obj.doc_file %}
-				<a href="{{obj.doc_file.url}}"><button class="btn btn-success">Yuklash</button></a>
-				{% else %}
-				<p align='center'>Fayl mavjud emas!</p>
-				{% endif %}
-
+        <div class="p-3 mb-2 bg-success text-black">
+			<h6 class="page-title" align="center">{{obj.id}}-Mavzu: {{obj.theme}}</h6>
+			<hr>
+			<p align="center">Dars vaqti:  {{obj.lesson_date}}</p>
+		</div>
+		<div class="p-3 mb-2 bg-dark text-white">
+			<div class="container">
+				<div class="row">
+					<div class="col"><h6 align="center">Fan nomi:</h6><p class="text-success">{{ obj.subject_type }}</p></div>
+					<div class="col" align="center"><h6 align="center">Ma'sul:</h6><p class="text-success">{{ obj.responsible_section }}</p></div>
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col">
+						<h6 align="center">Word:</h6>
+						{% if obj.doc_file %}
+						<a href="{{obj.doc_file.url}}"><button class="btn btn-success">Yuklash</button></a>
+						{% else %}
+						<p class="text-danger" align='center'>Fayl mavjud emas!</p>
+						{% endif %}
+					</div>
+					<div class="col"><h6 align="center">Audio:</h6>
+						{% if obj.audio_file %}
+						<audio controls>
+							<source src="{{ obj.audio_file.url }}" type="audio/mpeg">
+							<p class="text-danger">Sizning brauzeringiz audio fayllarni ocholmaydi!</p>
+						</audio>
+						{% else %}
+							<p class="text-danger" align="center">Fayl mavjud emas!</p>
+						{% endif %}
+					</div>
+				</div>
 			</div>
+			<hr>
+			<div class="card-header "><h6 align="center">Foto ilova:</h6>
+				{% if obj.img_file %}
 
-			<div class="card-header " align="center"><h5 align="center">Mavzu matni:</h5>
+				<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+					<ol class="carousel-indicators">
+						<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+						<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+						<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+					</ol>
+					<div class="carousel-inner">
+						<div class="carousel-item active">
+						 <img src="{{ obj.img_file.url }}" class="img-fluid" alt="">
+						</div>
+					</div>
+					<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</a>
+				</div>
 
+				<!--<div class="card-header " align="center"><img src="{{ obj.img_file.url }}" class="img-fluid" alt=""></div>-->
+				{% else %}
+				<p class="text-danger" align="center">Fayl mavjud emas!</p>
+				{% endif %}
+			</div>
+			<div class="card-header" align="center"><h6 align="center">Mavzu matni:</h6>
 			<style>
-			.del { display: none; }
-			.del:not(:checked) + label + * { display: none; }
+				.del { display: none; }
+				.del:not(:checked) + label + * { display: none; }
 
-			/* тут редактируем вид кнопки */
-			.del:not(:checked) + label,
-			.del:checked + label {
-			display: inline-block;
-			padding: 2px 10px;
-			border-radius: 2px;
-			color: #fff;
-			background: white;
-			cursor: pointer;
-			}
-			.del:checked + label {
-			background: #e36443;
-			}
+				/* тут редактируем вид кнопки */
+				.del:not(:checked) + label,
+				.del:checked + label {
+				display: inline-block;
+				padding: 2px 10px;
+				border-radius: 2px;
+				color: #fff;
+				background: green;
+				cursor: pointer;
+				}
+				.del:checked + label {
+				background: #e36443;
+				}
 			</style>
-			<input type="checkbox" id="raz" class="del"/>
-			<label for="raz" class="del">Matinni to'liq ochish</label><div>
-			<strong><p class="text-light bg-dark" align="justify">{{ obj.text }}</p></strong> </div>
+				<input type="checkbox" id="raz" class="del"/>
+				<label for="raz" class="del">Matinni to'liq ochish</label>
+				<div>
+					<strong>
+						<p class="text-light bg-dark" align="justify">{{ obj.text }}</p>
+					</strong>
+				</div>
 			</div>
-			<div class="card-header "><h5 align="center">Slayd namoishi:</h5>
+
+			<div class="card-header"><h6 align="center">Slayd namoishi:</h6>
 				{% if obj.powerpoint_file  %}
-				{{ obj.powerpoint_file.url }}
+					{{ obj.powerpoint_file.url }}
 				{% else %}
-				<p align="center">Fayl mavjud emas!</p>
+				<p class="text-danger" align="center">Fayl mavjud emas!</p>
 				{% endif %}
 			</div>
-			<div class="card-header "><h5 align="center">Video namuna:</h5>
+			<div class="card-header "><h6 align="center">Video:</h6>
 				{% if obj.video_file %}
 				<video poster="" controls muted width="250" height="200">
 					<source src="{{ obj.video_file.url }}" type="audio/mpeg">
-					Sizning brauzeringiz video fayllarni ocholmaydi!
+					<p class="text-danger">Sizning brauzeringiz video fayllarni ocholmaydi!</p>
 				</video>
 				{% else %}
-				<p align="center">Fayl mavjud emas!</p>
-				{% endif %}
-			</div>
-			<div align="center"><h5 align="center">Mavzuning audi falyi:</h5>
-				{% if obj.audio_file %}
-				<audio controls>
-					<source src="{{ obj.audio_file.url }}" type="audio/mpeg">
-					Sizning brauzeringiz audio fayllarni ocholmaydi!
-				</audio>
-				{% else %}
-				<p align="center">Fayl mavjud emas!</p>
-				{% endif %}
-			</div>
-			<hr>
-			<div class="card-header "><h5 align="center">Foto lavha:</h5>
-				{% if obj.img_file %}
-				<div class="card-header " align="center"><img src="{{ obj.img_file.url }}" class="img-fluid" alt=""></div>
-				{% else %}
-				<p align="center">Fayl mavjud emas!</p>
+				<p class="text-danger" align="center">Fayl mavjud emas!</p>
 				{% endif %}
 			</div>
 		</div>

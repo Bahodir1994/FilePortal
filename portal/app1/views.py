@@ -1,3 +1,4 @@
+from django import forms
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView, UpdateView
 
@@ -9,7 +10,7 @@ from .forms import CreateUserForm, Subjects_Form, Sections_and_groups_Form, User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from .models import Themes, Subjects, Sections_and_groups, UserThemeStatus
 from .filters import UserFilter, ThemesFilter
 from .decorators import *
@@ -58,13 +59,13 @@ def logoutuser(request):
 
 # -----------------------------------------------------------------------------------------------------------------------
 
-#@login_required(login_url='login')
-#@allowed_users2(allowed_roles=['super-admin', 'admin-type-1'])
+@login_required(login_url='login')
+@allowed_users2(allowed_roles=['super-admin', 'admin-type-1'])
 def Home(request):
     authusers = User.objects.all()
     allusers = User.objects.all()
     numberallusers = allusers.count()
-
+    us = User.objects.filter(groups__name__in=['admin-type-2'])
     activeusers = OnlineUserActivity.get_user_activities()
     numberactiveusers = activeusers.count()
     nameactiveusers = OnlineUserActivity.objects.all()
@@ -86,11 +87,11 @@ def Home(request):
         'activeusers': activeusers,
         'numberallusers': numberallusers,
         'nameactiveusers': nameactiveusers,
-        'form2': form2
+        'form2': form2,
+        'us': us
     }
 
     return render(request, 'app1/home.html', context)
-
 
 # -----------------------------------------------------------------------------------------------------------------------
 
@@ -142,27 +143,6 @@ class ThemeAddList(UpdateView):
     slug_field = 'slug2'
 
 
-"""
-class ThemesForWhich(UpdateView):
-    model = Themes
-    fields = ['doc_file', 'text', 'powerpoint_file', 'video_file', 'audio_file', 'img_file']
-    form = Themes_Form_for_admin_type_2()
-    template_name_suffix = 'themeforwhich'
-    slug_field = 'slug2'
-
-    #    if request.method == "POST":
-     #       form = Themes_Form_for_admin_type_2(request.POST, request.FILES)
-      #      if form.is_valid():
-       #         listing = form.save(commit=False)
-        #        listing.responsible_section = request.user
-         #       listing.save()
-          #      form.cleaned_data.get('__all__')
-           #     messages.success(request, "Mavzu ma'lumotlar yuklandi!" )
-            #    return redirect('themeforwhich')
-    #context = {'model': model, 'form': form}
-    #return render(request, 'app1/themeforwhich.html', context)
-"""
-
 
 # -----------------------------------------------------------------------------------------------------------------------
 
@@ -207,51 +187,20 @@ def AuthUserPage(request):
 
 # -----------------------------------------------------------------------------------------------------------------------
 
-
-"""
 class TablePage1(ListView):
-    queryset = Themes.objects.all()
     model = Themes
-    template_name = 'app1/tablepage1.html'
     paginate_by = 10
-    context_object_name = 'themefilter'
-
-# -----------------------------------------------------------------------------------------------------------------------
-
-class FilteredListView(ListView):
-    filterset_class = None
+    template_name = 'app1/tablepage1.html'
+    filterset_class = ThemesFilter
 
     def get_queryset(self):
-        # Get the queryset however you usually would.  For example:
         queryset = super().get_queryset()
-        # Then use the query parameters and the queryset to
-        # instantiate a filterset and save it as an attribute
-        # on the view instance for later.
         self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
-        # Return the filtered queryset
         return self.filterset.qs.distinct()
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # Pass the filterset to the template - it provides the form.
-        context['filterset'] = self.filterset
-        return context
-
-
-class TablePage1(FilteredListView):
-    model = Themes
-    filterset_class = ThemesFilter
-    paginate_by = 10
-    template_name = 'app1/tablepage1.html'
-"""
-
-class TablePage1(ListView):
-    model = Themes
-    paginate_by = 10
-    template_name = 'app1/tablepage1.html'
 
     def get_context_data(self,  **kwargs):
         context = super().get_context_data(**kwargs)
+        context['filterset'] = self.filterset
         return context
 
 
@@ -266,7 +215,3 @@ class TablePage1Detail(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
-
-
-
-

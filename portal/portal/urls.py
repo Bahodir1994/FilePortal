@@ -15,11 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-
+#from django_private_chat2 import urls as django_private_chat2_urls
 
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('app1.urls')),
+    #path('123', include(django_private_chat2_urls)),
+    #path("messages/", include("pinax.messages.urls", namespace="pinax_messages")),
+
 ]
